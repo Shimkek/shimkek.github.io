@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  </head>
-  <body>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
-    </div>
-  </section>
-  </body>
+    <title>To Do list</title>
+    <link rel="stylesheet" href="bulma.css">
+    <script src="scripts.js"></script>
+</head>
+
+<body>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                "To Do Or Not To Do"
+            </h1>
+        </div>
+    </section>
+
+    <table is-fullwidth class="table is-hoverable table-custom is is-fullwidth" id="toDoTable">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Task</th>
+                <th>Added at</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="todotablebody">
+            <tr id="1">
+                <td>Not Completed</td>
+                <td>Take a dump</td>
+                <td>21:14:26 08-May-2020</td>
+                <td><button class="button is-danger is-outlined is-small" onclick = "deleteTask('1')"><span></span><span class="icon"></span><i class="fas fa-times"></i></span></button></td>
+            </tr>
+        </tbody>
+    </table> 
+
+
+    <div class="control input-custom">
+        <input class="input" type="text" placeholder="New Task" maxlength="40" id="inputBox">
+      </div>
+
+
+    <div class="field button-custom">
+        <p class="control">
+          <a class="button is-primary" onclick = "addTask()">
+            Submit
+          </a>
+        </p>
+      </div>
+
+
+    <p id="test"></p>   
+</body>
+
+
+<script>
+appendTextnode('test', timeNow());
+</script>
 </html>

@@ -15,6 +15,24 @@
     transform: rotate(359deg);
   }
 }
+.input-custom {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  margin-right: 75%;
+  margin-left: 50px;
+}
+
+.button-custom {
+
+  margin-bottom: 20px;
+  margin-right: 75%;
+  margin-left: 50px;
+}
+
+.table-custom {
+  padding: 1em 2.75em;
+  border-collapse: inherit;
+}
 
 .delete, .modal-close, .is-unselectable, .button, .file, .breadcrumb, .pagination-previous,
 .pagination-next,
