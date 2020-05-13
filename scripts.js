@@ -1,20 +1,50 @@
-const stringToArray = (str) => {
-    var arr = [];
-    for(i=0; i<=str.length; i++)
-        arr[i] = str.charAt(i);
-    return arr;
-}
-
-const arrayToString = (arr) => {
-    var str = "";
-    for(i=0; i<=arr.length; i++)
-    str +=arr.charAt(i);
-    return str;
-}
-
 const fillTable = () => {
+    const tasks = JSON.parse(window.localStorage.getItem('tasks'));
+    for (i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
+        const taskNumberFunc = task.taskNumber;
+
+        const taskStatus = document.createTextNode(task.taskStatus);
+        const taskText = document.createTextNode(task.taskText);
+        const taskTime = document.createTextNode(task.taskTime);
+
+        const newStatus = document.createElement('td');
+        const newTask = document.createElement('td');
+        const newTimeStamp = document.createElement('td');
+        const newDeleteButton = document.createElement('td');
+
+        const row = document.createElement("tr");
+
+
+        newStatus.appendChild(taskStatus);
+        newTask.appendChild(taskText);
+        newTimeStamp.appendChild(taskTime);
+        newDeleteButton.innerHTML = '<button class="button is-danger is-outlined is-small" onclick = "deleteTask(' + taskNumberFunc + ')"><span class="icon"></span></button>';
+
+        row.appendChild(newStatus);
+        row.appendChild(newTask);
+        row.appendChild(newTimeStamp);
+        row.appendChild(newDeleteButton);
+        row.setAttribute('id', taskNumberFunc);
+        document.getElementById("todotablebody").appendChild(row);
+
+    };
 }
 
+const deleteTask = (id) => {
+    //   if (window.confirm("Are you sure?") === true) {
+    document.getElementById(id).remove();
+    var tasks = JSON.parse(window.localStorage.getItem('tasks'));
+    for (i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
+        if (task.taskNumber === id) {
+            tasks.splice(i, 1);
+            window.localStorage.setItem('tasks', JSON.stringify(tasks));
+            break;
+        };
+    };
+    //   }
+}
 
 const buttonScript = () => {
     window.localStorage.clear();
@@ -77,11 +107,7 @@ const timeNow = () => {
 
 }
 
-const deleteTask = (id) => {
- //   if (window.confirm("Are you sure?") === true) {
-        document.getElementById(id).remove();
- //   }
-}
+
 
 const addTask = () => {
     if (inputBox.value !== "") {
@@ -95,59 +121,49 @@ const addTask = () => {
         const newTimeStamp = document.createElement("td");
         const newDeleteButton = document.createElement("td");
 
+        var text = window.localStorage.getItem('createdTasks');
+        var createdTasks = parseInt(text, 10);
+        createdTasks++;
+        window.localStorage.setItem('createdTasks', createdTasks);
+
         const statusValue = document.createTextNode('Not Completed');
         newStatus.appendChild(statusValue);
-
+        newDeleteButton.innerHTML = '<button class="button is-danger is-outlined is-small" onclick = "deleteTask(' + createdTasks + ')"><span class="icon"></span></button>';
         newTask.appendChild(taskText);
 
         const timeStampValue = document.createTextNode(timeNow());
         newTimeStamp.appendChild(timeStampValue);
-
-        
 
         row.appendChild(newStatus);
         row.appendChild(newTask);
         row.appendChild(newTimeStamp);
         row.appendChild(newDeleteButton);
 
+        row.setAttribute('id', createdTasks);
         document.getElementById("todotablebody").appendChild(row);
-        
-        inputBox.value = "";
-        
-        
-        //
-        
-        
-        var text = window.localStorage.getItem('createdTasks');
-        var integer = parseInt(text, 10);
-        integer++;
-        window.localStorage.setItem('createdTasks', integer);
-    
 
-        if( tasks !== null) {
-        var tasks = stringToArray(window.localStorage.getItem('tasks'));
-        };
-        
-        appendTextnode('abc', tasks);
-        
-        
         const task = {
-            'taskNumber' :  integer,
-            'taskStatus' : 'Not Completed',
-            'taskText' : inputBox.value,
-            'taskTime' : timeNow()
-        }
-        
-       // tasks.push(task);
-      //  appendTextnode('\nabc', tasks);
-        
-        window.localStorage.setItem('tasks', tasks);
-       // tasks.push(task);
+            'taskNumber': createdTasks,
+            'taskStatus': 'Not Completed',
+            'taskText': inputBox.value,
+            'taskTime': timeNow()
+        };
 
-       // window.localStorage.getItem('tasks')
-    
-       // window.alert(tasks);
+        addTaskToLocalStorage(task);
 
-        
+        inputBox.value = "";
+
     }
+}
+
+const addTaskToLocalStorage = (task) => {
+    var tasks = JSON.parse(window.localStorage.getItem('tasks'));
+
+    if (tasks === null) {
+        var tasks = [];
+    };
+
+    tasks.push(task);
+    window.localStorage.setItem('tasks', JSON.stringify(tasks));
+    //window.alert(tasks);
 }

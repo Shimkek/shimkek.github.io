@@ -53,15 +53,15 @@
       </div>
 
 
-    <p id="test"></p>   
-    <div class="field button-custom"><button class="button is-danger is-outlined is-small" onclick = "buttonScript()"></button></div>
+    <p id="test" class='button-custom'></p>   
+    <div class="field button-custom"><button class="button is-danger is-outlined is-small" onclick = "buttonScript()">Delete Cache</button></div>
     <p id="abc"></p> 
 </body>
 
 
 <script>
-appendTextnode('test', '  waaaa    ' + timeNow());
-appendTextnode('test', '  Created tasks = ' + window.localStorage.getItem('createdTasks') + '     tasks:  ' + window.localStorage.getItem('tasks'));
+appendTextnode('test', '        ' + timeNow());
+appendTextnode('test', '  Created tasks = ' + window.localStorage.getItem('createdTasks') );
 fillTable();
 </script>
 </html>
